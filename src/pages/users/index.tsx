@@ -1,6 +1,7 @@
 import { Box, Button, Flex, Heading, Icon, Table, Th, Tr, Thead, Checkbox, Tbody, Td, Text } from "@chakra-ui/react";
 import { RiAddLine, RiPencilLine } from "react-icons/ri";
 import { Header } from "../../components/Header";
+import { Pagination } from "../../components/Pagination";
 import { SideBar } from "../../components/Sidebar";
 
 export default function UserList() {
@@ -20,7 +21,7 @@ export default function UserList() {
                             size="sm"
                             fontSize="sm"
                             colorScheme="pink"
-                            leftIcon={<Icon as={RiAddLine} fontSize="20"/>}
+                            leftIcon={<Icon as={RiAddLine} fontSize="20" />}
                             _hover={{
                                 cursor: 'pointer'
                             }}
@@ -59,7 +60,7 @@ export default function UserList() {
                                         size="sm"
                                         fontSize="sm"
                                         colorScheme="green"
-                                        leftIcon={<Icon as={RiPencilLine} fontSize="16"/>}
+                                        leftIcon={<Icon as={RiPencilLine} fontSize="16" />}
                                         _hover={{
                                             cursor: 'pointer'
                                         }}
@@ -85,7 +86,7 @@ export default function UserList() {
                                         size="sm"
                                         fontSize="sm"
                                         colorScheme="green"
-                                        leftIcon={<Icon as={RiPencilLine} fontSize="16"/>}
+                                        leftIcon={<Icon as={RiPencilLine} fontSize="16" />}
                                         _hover={{
                                             cursor: 'pointer'
                                         }}
@@ -96,6 +97,8 @@ export default function UserList() {
                             </Tr>
                         </Tbody>
                     </Table>
+
+                    <Pagination />
                 </Box>
             </Flex>
         </Box>
