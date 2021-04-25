@@ -30,6 +30,9 @@ export function Header() {
                 position="relative"
                 bg="gray.800"
                 borderRadius="full"
+                _hover={{
+                    cursor: 'text'
+                }}
             >
                 <Input
                     color="gray.50"
