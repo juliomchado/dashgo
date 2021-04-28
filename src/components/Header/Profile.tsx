@@ -1,5 +1,5 @@
 import { Avatar } from "@chakra-ui/avatar";
-import { Box, Flex, Text } from "@chakra-ui/layout";
+import { Box, Flex, Text } from "@chakra-ui/react";
 
 interface ProfileProps {
     showProfileData?: boolean;

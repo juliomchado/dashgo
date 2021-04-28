@@ -1,5 +1,4 @@
-import Icon from "@chakra-ui/icon";
-import { HStack } from "@chakra-ui/layout";
+import { HStack, Icon} from "@chakra-ui/react";
 import { RiNotificationLine, RiUserAddLine } from "react-icons/ri";
 
 export function NotificationsNav() {
