@@ -16,4 +16,4 @@ export function SidebarNav() {
             </NavSection>
         </Stack>
     )
-}
+};

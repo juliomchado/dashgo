@@ -36,7 +36,7 @@ export default function UserList() {
                                 leftIcon={<Icon as={RiAddLine} fontSize="20" />}
                                 _hover={{
                                     cursor: 'pointer'
-                                }}
+                                  }}
                             >
                                 Criar novo
                         </Button>
