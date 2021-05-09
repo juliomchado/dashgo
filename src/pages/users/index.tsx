@@ -1,8 +1,7 @@
-import { Box, Button, Flex, Heading, Icon, Table, Th, Tr, Thead, Checkbox, Tbody, Td, Text, useBreakpointValue } from "@chakra-ui/react";
 import Link from "next/link";
-import { SubmitHandler, useForm } from 'react-hook-form';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { Box, Button, Flex, Heading, Icon, Table, Th, Tr, Thead, Checkbox, Tbody, Td, Text, useBreakpointValue, Spinner } from "@chakra-ui/react";
+import { useQuery } from 'react-query';
+
 import { RiAddLine, RiPencilLine } from "react-icons/ri";
 import { Header } from "../../components/Header";
 import { Pagination } from "../../components/Pagination";
@@ -11,16 +10,18 @@ import { useEffect } from "react";
 
 
 export default function UserList() {
+
+    const { data, isLoading, error } = useQuery('users', async () => {
+        const response = await fetch('http://localhost:3000/api/users')
+        const data = await response.json();
+
+        return data;
+    });
+
     const isWideVersion = useBreakpointValue({
         base: false,
         lg: true
     });
-
-    useEffect(() => {
-        fetch('http://localhost:3000/api/users')
-            .then(response => response.json())
-            .then(data => console.log(data))
-    }, [])
 
     return (
         <Box>
@@ -50,77 +51,89 @@ export default function UserList() {
 
                     </Flex>
 
-                    <Table colorScheme="whiteAlpha">
-                        <Thead>
-                            <Tr>
-                                <Th px={["4", "4", "6"]} color="gray.300" width="8">
-                                    <Checkbox colorScheme="pink" />
-                                </Th>
-                                <Th>Usuário</Th>
-                                {isWideVersion && (
-                                    <Th>Data de cadastro</Th>
-                                )}
+                    {isLoading ? (
+                        <Flex justify="center">
+                            <Spinner />
+                        </Flex>
+                    ) : error ? (
+                        <Flex justify="center">
+                            <Text>Falha ao obter dados dos usuários.</Text>
+                        </Flex>
+                    ) : (
+                        <>
+                            <Table colorScheme="whiteAlpha">
+                                <Thead>
+                                    <Tr>
+                                        <Th px={["4", "4", "6"]} color="gray.300" width="8">
+                                            <Checkbox colorScheme="pink" />
+                                        </Th>
+                                        <Th>Usuário</Th>
+                                        {isWideVersion && (
+                                            <Th>Data de cadastro</Th>
+                                        )}
 
-                                <Th width="8"></Th>
-                            </Tr>
-                        </Thead>
-                        <Tbody>
-                            <Tr>
-                                <Td px={["4", "4", "6"]}>
-                                    <Checkbox colorScheme="pink" />
-                                </Td>
-                                <Td>
-                                    <Box>
-                                        <Text fontWeight="bold">Julio Machado</Text>
-                                        <Text fontSize="sm" color="gray.300">juliocarlos00@hotmail.com</Text>
-                                    </Box>
-                                </Td>
-                                {isWideVersion && (<Td>04 de Abril, 2021</Td>)}
-                                <Td>
-                                    {isWideVersion && (<Button
-                                        as="a"
-                                        size="sm"
-                                        fontSize="sm"
-                                        colorScheme="green"
-                                        leftIcon={<Icon as={RiPencilLine} fontSize="16" />}
-                                        _hover={{
-                                            cursor: 'pointer'
-                                        }}
-                                    >
-                                        Editar
-                                    </Button>)}
-                                </Td>
-                            </Tr>
-                            <Tr>
-                                <Td px={["4", "4", "6"]}>
-                                    <Checkbox colorScheme="pink" />
-                                </Td>
-                                <Td>
-                                    <Box>
-                                        <Text fontWeight="bold">Julio Machado</Text>
-                                        <Text fontSize="sm" color="gray.300">juliocarlos00@hotmail.com</Text>
-                                    </Box>
-                                </Td>
-                                {isWideVersion && (<Td>04 de Abril, 2021</Td>)}
-                                <Td>
-                                    {isWideVersion && (<Button
-                                        as="a"
-                                        size="sm"
-                                        fontSize="sm"
-                                        colorScheme="green"
-                                        leftIcon={<Icon as={RiPencilLine} fontSize="16" />}
-                                        _hover={{
-                                            cursor: 'pointer'
-                                        }}
-                                    >
-                                        Editar
-                                    </Button>)}
-                                </Td>
-                            </Tr>
-                        </Tbody>
-                    </Table>
+                                        <Th width="8"></Th>
+                                    </Tr>
+                                </Thead>
+                                <Tbody>
+                                    <Tr>
+                                        <Td px={["4", "4", "6"]}>
+                                            <Checkbox colorScheme="pink" />
+                                        </Td>
+                                        <Td>
+                                            <Box>
+                                                <Text fontWeight="bold">Julio Machado</Text>
+                                                <Text fontSize="sm" color="gray.300">juliocarlos00@hotmail.com</Text>
+                                            </Box>
+                                        </Td>
+                                        {isWideVersion && (<Td>04 de Abril, 2021</Td>)}
+                                        <Td>
+                                            {isWideVersion && (<Button
+                                                as="a"
+                                                size="sm"
+                                                fontSize="sm"
+                                                colorScheme="green"
+                                                leftIcon={<Icon as={RiPencilLine} fontSize="16" />}
+                                                _hover={{
+                                                    cursor: 'pointer'
+                                                }}
+                                            >
+                                                Editar
+                                            </Button>)}
+                                        </Td>
+                                    </Tr>
+                                    <Tr>
+                                        <Td px={["4", "4", "6"]}>
+                                            <Checkbox colorScheme="pink" />
+                                        </Td>
+                                        <Td>
+                                            <Box>
+                                                <Text fontWeight="bold">Julio Machado</Text>
+                                                <Text fontSize="sm" color="gray.300">juliocarlos00@hotmail.com</Text>
+                                            </Box>
+                                        </Td>
+                                        {isWideVersion && (<Td>04 de Abril, 2021</Td>)}
+                                        <Td>
+                                            {isWideVersion && (<Button
+                                                as="a"
+                                                size="sm"
+                                                fontSize="sm"
+                                                colorScheme="green"
+                                                leftIcon={<Icon as={RiPencilLine} fontSize="16" />}
+                                                _hover={{
+                                                    cursor: 'pointer'
+                                                }}
+                                            >
+                                                Editar
+                                            </Button>)}
+                                        </Td>
+                                    </Tr>
+                                </Tbody>
+                            </Table>
 
-                    <Pagination />
+                            <Pagination />
+                        </>
+                    )}
                 </Box>
             </Flex>
         </Box>
